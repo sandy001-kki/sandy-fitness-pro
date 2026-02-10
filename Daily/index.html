@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sandeep Tracker</title>
+    
+    <link rel="icon" type="image/png" href="icon.png">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body id="body-tag">
+    <div class="container">
+        <header class="card header-section">
+            <div class="header-top">
+                <div class="clock-display">
+                    <span class="live-indicator"></span>
+                    <span id="live-clock">00:00:00</span>
+                </div>
+                <div class="streak-pill" onclick="showWeeklySummary()">
+                    <span id="streak-count">0</span> <span class="flame">🔥</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <input type="date" id="date-selector" class="dark-input">
+                <button onclick="toggleCollegeMode()" id="mode-btn" class="toggle-btn">COLLEGE: OFF</button>
+            </div>
+        </header>
+
+        <main id="college-view" class="view-pane hidden">
+            <section class="card">
+                <div class="card-title">
+                    <h3>📚 SEM 4 CLASSES</h3>
+                    <span id="current-period-tag" class="badge">LIVE</span>
+                </div>
+                <div id="timetable-display" class="list-container"></div>
+            </section>
+        </main>
+
+        <main id="fitness-view" class="view-pane">
+            <section class="card water-card">
+                <div class="water-flex">
+                    <div class="water-text">
+                        <h3>💧 HYDRATION</h3>
+                        <p id="water-count">0 / 3.5L</p>
+                    </div>
+                    <div class="cup-outline">
+                        <div id="water-fill" class="water-inner"></div>
+                    </div>
+                    <button onclick="addWater()" class="round-btn">+</button>
+                </div>
+            </section>
+
+            <section class="card chart-card">
+                <h3>📈 CONSISTENCY</h3>
+                <div class="canvas-box"><canvas id="progressChart"></canvas></div>
+            </section>
+
+            <section class="card">
+                <h3 id="day-title">DAILY PLAN</h3>
+                <div id="diet-info" class="diet-box"></div>
+                <div id="checklist" class="check-list"></div>
+            </section>
+
+            <section class="card pb-section">
+                <h3>🏆 RECORDS</h3>
+                <div class="pb-row">
+                    <div class="pb-item">
+                        <small>SQUAT</small>
+                        <input type="text" id="pb-squat" oninput="savePB()" placeholder="0kg">
+                    </div>
+                    <div class="pb-item">
+                        <small>PRESS</small>
+                        <input type="text" id="pb-press" oninput="savePB()" placeholder="0kg">
+                    </div>
+                </div>
+                <button onclick="exportHistory()" class="btn-outline">💾 BACKUP DATA</button>
+            </section>
+        </main>
+
+        <div id="timer-overlay" class="overlay hidden">
+            <div class="overlay-box">
+                <h1 id="timer-display">00:00</h1>
+                <p id="timer-label">TASK</p>
+                <div class="overlay-btns">
+                    <button onclick="startTimer()" class="btn-solid">START</button>
+                    <button onclick="closeTimer()" class="btn-text">CLOSE</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="summary-modal" class="overlay hidden">
+            <div class="card summary-box">
+                <h2>Weekly Summary</h2>
+                <div id="summary-stats"></div>
+                <button onclick="closeSummary()" class="btn-solid">CLOSE</button>
+            </div>
+        </div>
+
+        <div id="rest-timer-toast" class="toast hidden">REST: <span id="rest-countdown">60</span>s</div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
